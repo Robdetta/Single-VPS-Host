@@ -6,6 +6,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
     pull_policy: always
     ports:
       - '8080:8080'
