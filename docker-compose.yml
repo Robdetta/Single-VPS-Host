@@ -23,7 +23,6 @@ services:
       - caddy_network
     depends_on:
       - app
-
 networks:
   caddy_network:
 
