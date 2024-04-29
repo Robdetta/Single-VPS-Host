@@ -7,6 +7,8 @@ services:
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
     pull_policy: always
+    ports:
+      - '8080:8080'
     restart: always
     networks:
       - caddy_network
