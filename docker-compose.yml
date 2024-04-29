@@ -13,8 +13,7 @@ services:
     restart: always
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs:/etc/ssl/certs
-      - ./private:/etc/ssl/private
+      - /etc/letsencrypt:/etc/letsencrypt
       - caddy_data:/data
       - caddy_config:/config
     ports:
