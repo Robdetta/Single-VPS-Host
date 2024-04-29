@@ -4,7 +4,20 @@ services:
   app:
     image: robdetta/brewtrail
     ports:
-      - '8001:8080'
+      - '8080:8080'
     environment:
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
+  caddy:
+    image: caddy:2
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
