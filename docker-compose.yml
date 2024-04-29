@@ -3,8 +3,9 @@ version: '3.8'
 services:
   app:
     image: robdetta/brewtrail
-    env_file:
-      - .env
+    environment:
+      SPRING_DATASOURCE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
     pull_policy: always
     restart: always
     networks:
