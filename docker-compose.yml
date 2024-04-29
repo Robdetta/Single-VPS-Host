@@ -3,21 +3,31 @@ version: '3.8'
 services:
   app:
     image: robdetta/brewtrail
-    ports:
-      - '8080:8080'
-    environment:
-      SPRING_DATASOURCE_URL: ${DATABASE_URL}
-      JWT_SECRET: ${JWT_SECRET}
+    pull_policy: always
+    restart: always
+    networks:
+      - caddy_network
+
   caddy:
-    image: caddy:2
+    image: caddy:latest
+    restart: always
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certs:/etc/ssl/certs
+      - ./private:/etc/ssl/private
+      - caddy_data:/data
+      - caddy_config:/config
     ports:
       - '80:80'
       - '443:443'
-    volumes:
-      - /root/Single-VPS-Host/Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    restart: unless-stopped
+    networks:
+      - caddy_network
+    depends_on:
+      - app
+
+networks:
+  caddy_network:
+
 volumes:
   caddy_data:
   caddy_config:

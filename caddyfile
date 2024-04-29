@@ -1,3 +1,4 @@
 api.robbiehem.dev {
-    reverse_proxy app:8080
+  reverse_proxy app:8080
+  tls /etc/ssl/certs/api_robbiehem_dev.pem /etc/ssl/private/api_robbiehem_dev.pem
 }
