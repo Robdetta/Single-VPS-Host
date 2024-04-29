@@ -12,9 +12,8 @@ services:
     image: caddy:latest
     restart: always
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs:/etc/ssl/certs
-      - ./private:/etc/ssl/private
+      - ./caddyfile:/etc/caddy/Caddyfile
+      - /etc/letsencrypt:/etc/letsencrypt
       - caddy_data:/data
       - caddy_config:/config
     ports:
