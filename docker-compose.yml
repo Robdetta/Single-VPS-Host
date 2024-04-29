@@ -3,35 +3,28 @@ version: '3.8'
 services:
   app:
     image: robdetta/brewtrail
+    ports:
+      - '8080:8080'
     environment:
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
-      FRONTEND_URL: ${FRONTEND_URL}
-    pull_policy: always
-    ports:
-      - '8080:8080'
-    restart: always
-    networks:
-      - caddy_network
+    depends_on:
+      - db
 
-  caddy:
-    image: caddy:latest
-    restart: always
-    volumes:
-      - ./caddyfile:/etc/caddy/Caddyfile
-      - /etc/letsencrypt:/etc/letsencrypt
-      - caddy_data:/data
-      - caddy_config:/config
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: databasename
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+
+  nginx:
+    image: nginx:latest
     ports:
       - '80:80'
-      - '443:443'
-    networks:
-      - caddy_network
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - app
-networks:
-  caddy_network:
-
-volumes:
-  caddy_data:
-  caddy_config:
