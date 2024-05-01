@@ -9,13 +9,26 @@ services:
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
       FRONTEND_URL: ${FRONTEND_URL}
-  nginx:
-    image: nginx:latest
+    networks:
+      - caddy_network
+  caddy:
+    image: caddy:latest # Use the latest Caddy image
     ports:
-      - '80:80'
-      - '443:443'
+      - '80:80' # Map HTTP port
+      - '443:443' # Map HTTPS port
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt:/etc/letsencrypt
+      - ./Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
+
+      - caddy_data:/data # Persistent volume for Caddy data
+      - caddy_config:/config # Persistent volume for Caddy configuration
+    networks:
+      - caddy_network
     depends_on:
       - app
+
+  networks:
+    caddy_network:
+
+  volumes:
+    caddy_data:
+    caddy_config:
