@@ -26,8 +26,8 @@ services:
     depends_on:
       - app
 
-  networks:
-    caddy_network:
+networks:
+  caddy_network:
 
 volumes:
   caddy_data:
