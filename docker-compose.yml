@@ -3,7 +3,6 @@ version: '3.8'
 services:
   app:
     image: robdetta/brewtrail:latest
-    image: robdetta/brewtrail:latest
     ports:
       - '8080:8080'
     environment:
@@ -17,8 +16,6 @@ services:
     ports:
       - '80:80' # Map HTTP port
       - '443:443' # Map HTTPS port
-      - '80:80' # Map HTTP port
-      - '443:443' # Map HTTPS port
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
       - /etc/letsencrypt:/etc/letsencrypt
@@ -28,13 +25,6 @@ services:
       - caddy_network
     depends_on:
       - app
-
-networks:
-  caddy_network:
-
-volumes:
-  caddy_data:
-  caddy_config:
 
 networks:
   caddy_network:
