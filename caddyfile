@@ -1,4 +1,7 @@
 api.robbiehem.dev {
-  reverse_proxy app:8080
-  tls /etc/letsencrypt/live/api.robbiehem.dev/fullchain.pem /etc/letsencrypt/live/api.robbiehem.dev/privkey.pem
+reverse_proxy app:8080 {
+header_up -Transfer-Encoding
+header_down -Transfer-Encoding
+}
+tls /etc/letsencrypt/live/api.robbiehem.dev/fullchain.pem /etc/letsencrypt/live/api.robbiehem.dev/privkey.pem
 }
