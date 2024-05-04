@@ -21,6 +21,8 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - caddy_data:/data # Persistent volume for Caddy data
       - caddy_config:/config # Persistent volume for Caddy configuration
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
     networks:
       - caddy_network
     depends_on:
